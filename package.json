@@ -1,0 +1,48 @@
+{
+  "name": "CIS197-React-HW",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha --compilers jsx:babel-register"
+  },
+  "author": "Devesh Dayal, Steve Vitali",
+  "devDependencies": {
+    "babel-preset-react": "*",
+    "babel-register": "*",
+    "browserify": "*",
+    "browserify-resolutions": "*",
+    "chai": "*",
+    "eslint-plugin-react": "*",
+    "expect": "*",
+    "grunt": "*",
+    "grunt-mocha-test": "*",
+    "grunt-shell": "*",
+    "gulp": "*",
+    "gulp-eslint": "*",
+    "gulp-zip": "*",
+    "jsdom": "*",
+    "mocha": "*",
+    "proxyquire": "*",
+    "redux-devtools": "*",
+    "sinon": "*",
+    "vinyl-source-stream": "*",
+    "watchify": "*"
+  },
+  "dependencies": {
+    "ejs": "*",
+    "eslint": "*",
+    "express": "*",
+    "grunt-cli": "*",
+    "gruntify-eslint": "*",
+    "jquery": "*",
+    "lodash": "*",
+    "react": "*",
+    "react-addons-test-utils": "*",
+    "react-addons-update": "*",
+    "react-dom": "*",
+    "react-redux": "*",
+    "reactify": "*",
+    "redux": "*"
+  }
+}
