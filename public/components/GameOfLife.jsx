@@ -7,7 +7,6 @@ var Cell = require('./Cell.jsx');
 var actions = require('../actions/index.js');
 var initialState = require('../initialState.js');
 
-
 var GameOfLife = React.createClass({
   propTypes: {
     store: React.PropTypes.object.isRequired
@@ -32,6 +31,30 @@ var GameOfLife = React.createClass({
 
   onImportSeed: function (seedName) {
     this.props.store.dispatch(actions.importSeed(seedName));
+  },
+
+  run: function () {
+    this.props.store.dispatch(actions.run());
+  },
+
+  step: function () {
+    this.props.store.dispatch(actions.step());
+  },
+
+  stop: function () {
+    this.props.store.dispatch(actions.stop());
+  },
+
+  clear: function () {
+    this.props.store.dispatch(actions.clear());
+  },
+
+  export: function () {
+    this.props.store.dispatch(actions.export());
+  },
+
+  randomSeed: function () {
+    this.props.store.dispatch(actions.randomSeed());
   },
 
   // TODO: here you'll want to implement the functions that get called
@@ -73,6 +96,38 @@ var GameOfLife = React.createClass({
   // HINT: Remember that the application state's `x`, `y`, and `cells` values
   //       are located in this.state and not this.props.
   render: function () {
+
+    var cells = [];
+
+    for (var i = 0; i < this.state.x*this.state.y; i++) {
+      cells.push(<span className="cell-widget cell" key={i}></span>);
+    }
+
+    console.log(this.state.x);
+    console.log(this.state.y);
+
+    return (
+    <div className="game-component">
+      <div className="board-component" style={{width: 900 + "px"}}>
+        {cells}
+      </div>
+      <div className="controls">
+        <h4>Controls</h4>
+        <button onClick={this.run}>run</button>
+        <button onClick={this.step}>step</button>
+        <button onClick={this.stop}>stop</button>
+        <button onClick={this.clear}>clear</button>
+        <button onClick={this.export}>export</button>
+      </div>
+      <div className="seeds">
+        <button>glider</button>
+        <button>glider gun</button>
+        <button>acorn</button>
+        <button>line</button>
+        <button onClick={this.randomSeed}>random</button>
+      </div>
+    </div>
+    );
   }
 });
 
