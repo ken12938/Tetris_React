@@ -32,6 +32,16 @@ var Cell = React.createClass({
     //       <span class="cell-component cell alive"></span>
     // HINT: don't forget to implement the click handler
     //       whose execution dispatches a CELL_CLICKED event.
+
+    if (this.props.alive) {
+      return (
+        <span onClick={this.onCellClick} className="cell-component cell alive"></span>
+      )
+    } else {
+      return (
+        <span onClick={this.onCellClick} className="cell-component cell"></span>
+      )
+    }
   }
 });
 

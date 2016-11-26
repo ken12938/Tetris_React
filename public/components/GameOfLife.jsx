@@ -99,16 +99,13 @@ var GameOfLife = React.createClass({
 
     var cells = [];
 
-    for (var i = 0; i < this.state.x*this.state.y; i++) {
-      cells.push(<span className="cell-widget cell" key={i}></span>);
+    for (var i = 0; i < this.state.cells.length; i++) {
+      cells.push(<Cell key={i} alive={this.state.cells[i]} store={this.props.store}></Cell>);
     }
-
-    console.log(this.state.x);
-    console.log(this.state.y);
 
     return (
     <div className="game-component">
-      <div className="board-component" style={{width: 900 + "px"}}>
+      <div className="board-component" style={{"width": "900px"}}>
         {cells}
       </div>
       <div className="controls">
