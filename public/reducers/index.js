@@ -56,6 +56,10 @@ var mainReducer = function (state, action) {
     _.assign(state, new Stop);
     return state;
 
+  case 'IMPORT_SEED':
+    _.assign(state.cells, action.seed);
+    return state;
+
   case 'EXPORT':
     var data = encodeURIComponent(state.cells);
     return document.location = '/export?data=[' + data + ']';

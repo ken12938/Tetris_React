@@ -38,10 +38,10 @@ exports.step = function () {
 //       and object with type 'IMPORT_SEED' and attribute
 //       'seed' the maps to the seed data of the given seedName.
 
-exports.importSeed = function(seed) {
+exports.importSeed = function(seed) {;
   return {
     type: 'IMPORT_SEED',
-    seed: seed
+    seed: seeds[seed]
   };
 };
 

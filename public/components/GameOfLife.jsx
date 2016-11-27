@@ -57,6 +57,22 @@ var GameOfLife = React.createClass({
     this.props.store.dispatch(actions.randomSeed());
   },
 
+  glider: function () {
+    this.onImportSeed('GLIDER');
+  },
+
+  gliderGun: function () {
+    this.onImportSeed('GLIDER_GUN');
+  },
+
+  acorn: function () {
+    this.onImportSeed('ACORN');
+  },
+
+  line: function () {
+    this.onImportSeed('LINE');
+  },
+
   // TODO: here you'll want to implement the functions that get called
   //       when various actions (such as button clicks) occur in thie view.
   //       These functions should, like onImportSeed above, dispatch the
@@ -117,10 +133,10 @@ var GameOfLife = React.createClass({
         <button onClick={this.export}>export</button>
       </div>
       <div className="seeds">
-        <button>glider</button>
-        <button>glider gun</button>
-        <button>acorn</button>
-        <button>line</button>
+        <button onClick={this.glider}>glider</button>
+        <button onClick={this.gliderGun}>glider gun</button>
+        <button onClick={this.acorn}>acorn</button>
+        <button onClick={this.line}>line</button>
         <button onClick={this.randomSeed}>random</button>
       </div>
     </div>
