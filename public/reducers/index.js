@@ -20,12 +20,41 @@ var initialState = require('../initialState.js');
 //       'RANDOM_SEED' - set the cells array to a randomly-generated grid
 //       'IMPORT_SEED' - update the cells array to the action's seed payload
 //                       and stop the animation if necessary.
+
+function Run () {
+  this.isRunning = true;
+}
+
+function Stop () {
+  this.isRunning = false;
+}
+
 var mainReducer = function (state, action) {
+
+  console.log(state);
+  console.log(action);
+  console.log(action.type);
+
   switch (action.type) {
   case 'RUN':
     timer.run();
+    _.assign(state, new Run);
     return state;
 
+  case 'STOP':
+    timer.stop();
+    _.assign(state, new Stop);
+    return state;
+
+  case 'STEP':
+    _.assign(state.cells, updateCells(state));
+    return state;
+
+  case 'RANDOM_SEED':
+    _.assign(state.cells, randomSeed(state));
+    timer.stop();
+    _.assign(state, new Stop);
+    return state;
 
   case 'EXPORT':
     var data = encodeURIComponent(state.cells);
@@ -42,6 +71,19 @@ var mainReducer = function (state, action) {
 function randomSeed(state) {
   // TODO: Return a (NEW) randomly generated array of true/false values
   // the same length as state.cells
+
+  var cell = [];
+
+  for (var i=0; i < state.cells.length; i++) {
+    var rand = Math.random();
+    if (rand > 0.5) {
+      cell.push(false);
+    } else {
+      cell.push(true);
+    }
+  }
+
+  return cell;
 }
 
 // This is the main algorithm behind the Game of Life simulation.
