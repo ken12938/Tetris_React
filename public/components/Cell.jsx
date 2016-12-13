@@ -33,13 +33,13 @@ var Cell = React.createClass({
     // HINT: don't forget to implement the click handler
     //       whose execution dispatches a CELL_CLICKED event.
 
-    if (this.props.alive) {
+    if (this.props.color === 0) {
       return (
-        <span onClick={this.onCellClick} className="cell-component cell alive"></span>
+        <span onClick={this.onCellClick} className="cell-component cell black"></span>
       )
     } else {
       return (
-        <span onClick={this.onCellClick} className="cell-component cell"></span>
+        <span onClick={this.onCellClick} className="cell-component cell red"></span>
       )
     }
   }

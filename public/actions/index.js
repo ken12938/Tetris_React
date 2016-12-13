@@ -26,7 +26,7 @@ exports.step = function () {
     type: 'STEP'
   };
 };
-
+/*
 // The importSeed action is used to signal the event that the user
 // has chosen a pre-built seed from the UI with a particular name.
 // Hence, in the reducer, when we receive an IMPORT_SEED action,
@@ -64,12 +64,11 @@ exports.importSeed = function(seed) {;
 //       types (corresponding to the action functions called from
 //       GameContainer's mapDispatchToProps):
 //       'STOP', 'CLEAR', 'RANDOM_SEED', 'EXPORT', 'CELL_BLICKED'
-
-exports.stop = function() {
+*/exports.stop = function() {
   return {
     type: 'STOP'
   };
-};
+};/*
 
 exports.clear = function() {
   return {
@@ -94,3 +93,4 @@ exports.cellClicked = function() {
     type: 'CELL_CLICKED'
   };
 };
+*/

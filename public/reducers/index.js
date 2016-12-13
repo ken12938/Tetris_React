@@ -31,17 +31,15 @@ function Stop () {
 
 var mainReducer = function (state, action) {
 
-  console.log(state);
-  console.log(action);
-  console.log(action.type);
-
   switch (action.type) {
   case 'RUN':
+    console.log('Running');
     timer.run();
     _.assign(state, new Run);
     return state;
 
   case 'STOP':
+    console.log('Stopped');
     timer.stop();
     _.assign(state, new Stop);
     return state;
@@ -50,7 +48,7 @@ var mainReducer = function (state, action) {
     _.assign(state.cells, updateCells(state));
     return state;
 
-  case 'RANDOM_SEED':
+  /*case 'RANDOM_SEED':
     _.assign(state.cells, randomSeed(state));
     timer.stop();
     _.assign(state, new Stop);
@@ -62,17 +60,17 @@ var mainReducer = function (state, action) {
 
   case 'EXPORT':
     var data = encodeURIComponent(state.cells);
-    return document.location = '/export?data=[' + data + ']';
+    return document.location = '/export?data=[' + data + ']';*/
 
   case 'CELL_CLICKED':
-    var cells = state.cells.slice(0);
+    var cells = state.cellsFilled.slice(0);
     cells[action.index] = !cells[action.index];
     return _.assign({}, state, {cells: cells});
   }
   return state;
 };
 
-function randomSeed(state) {
+/*function randomSeed(state) {
   // TODO: Return a (NEW) randomly generated array of true/false values
   // the same length as state.cells
 
@@ -88,7 +86,7 @@ function randomSeed(state) {
   }
 
   return cell;
-}
+}*/
 
 // This is the main algorithm behind the Game of Life simulation.
 // Every time it is called, it computes based on the current state's
@@ -107,8 +105,43 @@ function randomSeed(state) {
 //     as if by reproduction.
 //
 function updateCells(state) {
-  var newCells = new Array(state.cells.length);
-  state.cells.forEach(function (_, i) {
+
+
+  var newCells = new Array(state.cellsFilled.length);
+
+  var clear = true;
+  for (var i = 0; i < state.newBlock.length; i++) {
+    if (state.newBlock[i] + 10 >= 200) {
+      clear = false;
+    } else if (state.cellsFilled[state.newBlock[i] + 10]) {
+      clear = false;
+    }
+  }
+
+  if (clear) {
+    for (var i = 0; i < state.newBlock.length; i++) {
+      var currCell = state.newBlock[i];
+      state.newBlock[i] = currCell + 10;
+      state.cellColor[currCell + 10] = state.newBlockColor;
+      if (currCell >= 0) {
+        state.cellColor[currCell] = 0;
+      }
+    }
+  } else {
+    for (var i = 0; i < state.newBlock.length; i++) {
+      var currCell = state.newBlock[i];
+      state.cellColor[currCell] = state.newBlockColor;
+      state.cellsFilled[currCell] = true;
+      if (currCell < 10) {
+        timer.stop();
+        _.assign(state, new Stop);
+      } else {
+        state.newBlock[i] = -7 + i;
+      }
+    }
+  }
+
+  /*state.cells.forEach(function (_, i) {
     var cell = state.cells[i];
     var live_neighbors = 0;
     var x = i % state.x;
@@ -130,12 +163,11 @@ function updateCells(state) {
 
     newCells[i] = (cell && (live_neighbors === 2 || live_neighbors === 3)) ||
            (live_neighbors === 3);
-  });
-  return newCells;
+  });*/
+  return state;
 }
 
 module.exports = exports = {
   mainReducer: mainReducer,
-  updateCells: updateCells,
-  randomSeed: randomSeed
+  updateCells: updateCells
 };

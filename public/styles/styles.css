@@ -19,7 +19,7 @@ h4 {
 
 button {
   text-transform: uppercase;
-  margin: 2px;
+  margin: auto;
   font-weight: 200;
   background: rgba(255, 255, 255, 1);
   border: none;
@@ -28,7 +28,7 @@ button {
 button:hover {
   cursor: pointer;
   font-weight: 800;
-  border-left: 2px solid #17822c;
+  border-bottom: 1px solid red;
 }
 
 button:focus {outline:0;}
@@ -46,37 +46,51 @@ button:focus {outline:0;}
 }
 
 .container {
-  min-height: 432px;
-  min-width: 576px;
+  height: 400px;
+  width: 200px;
+}
+
+.game-board {
+  margin: auto;
+  width: 200px;
 }
 
 .board-component {
   margin: auto;
-  min-height: 432px;
-  min-width: 576px;
-  border-radius: 10px;
+  height: 400px;
+  width: 200px;
+  border-radius: 3px;
   border: 2px solid #ccc;
+  border-color: #858585;
 }
 
 .cell {
   display:block;
-  border-radius:4px;
+  border-radius:3px;
   float:left;
   border:1px solid #ccc;
-  height:10px;
-  width:10px;
+  height:18px;
+  width:18px;
   user-select:none;
 }
 
-.cell:hover {
-  border-color:#f00
+.cell.black {
+  background-color:#FFFFFF;
+  border-color:#858585;
+  border-radius:3px;
 }
 
-.cell.alive {
-  background-color:#178DDC
+.cell.red {
+  background-color:#FF0000;
+  border-color:#858585;
+  border-radius:3px;
 }
 
-.controls {
+.start {
+  margin: auto;
+}
+
+/*.controls {
   width: 50%;
   float: left;
 }
@@ -88,4 +102,4 @@ button:focus {outline:0;}
 
 .controls, .seeds {
   text-align:center
-};
+};*/
