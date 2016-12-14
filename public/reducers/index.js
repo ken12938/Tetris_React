@@ -1,25 +1,6 @@
-// CIS 197 - React HW
-
 var _ = require('lodash');
 var timer = require('../timer.js');
 var initialState = require('../initialState.js');
-
-// Every time an action is dispatched, this function is called.
-// Using the current state and the action just performed (along with
-// any payload data associated with it), this function computes the
-// next state.
-// HOWEVER, note that you CANNOT mutate the state variable directly.
-// Instead, you want return a new, updated copy of the state in the
-// reducer each time it is called (an easy way to do this is to use
-// lodash's _.assign function).
-//
-// TODO: Implement the following cases:
-//       'STOP' - stop the animation by setting isRunning to false
-//       'STEP' - use the updateCells function below to update the cells array
-//       'CLEAR' - set the grid to an empty grid and stop the animation
-//       'RANDOM_SEED' - set the cells array to a randomly-generated grid
-//       'IMPORT_SEED' - update the cells array to the action's seed payload
-//                       and stop the animation if necessary.
 
 function Run () {
   this.isRunning = true;
@@ -27,6 +8,16 @@ function Run () {
 
 function Stop () {
   this.isRunning = false;
+}
+
+function contains (arr, obj) {
+  var i = arr.length;
+  while (i--) {
+    if (arr[i] === obj) {
+      return true;
+    }
+  }
+  return false;
 }
 
 var mainReducer = function (state, action) {
@@ -48,19 +39,21 @@ var mainReducer = function (state, action) {
     _.assign(state.cells, updateCells(state));
     return state;
 
-  /*case 'RANDOM_SEED':
-    _.assign(state.cells, randomSeed(state));
-    timer.stop();
-    _.assign(state, new Stop);
+  case 'LEFT':
+    _.assign(state.cells, inputLeft(state));
     return state;
 
-  case 'IMPORT_SEED':
-    _.assign(state.cells, action.seed);
+  case 'RIGHT':
+    _.assign(state.cells, inputRight(state));
     return state;
 
-  case 'EXPORT':
-    var data = encodeURIComponent(state.cells);
-    return document.location = '/export?data=[' + data + ']';*/
+  case 'DOWN':
+    _.assign(state.cells, inputDown(state));
+    return state;
+
+  case 'HARDDROP':
+    _.assign(state.cells, hardDrop(state));
+    return state;
 
   case 'CELL_CLICKED':
     var cells = state.cellsFilled.slice(0);
@@ -70,50 +63,13 @@ var mainReducer = function (state, action) {
   return state;
 };
 
-/*function randomSeed(state) {
-  // TODO: Return a (NEW) randomly generated array of true/false values
-  // the same length as state.cells
-
-  var cell = [];
-
-  for (var i=0; i < state.cells.length; i++) {
-    var rand = Math.random();
-    if (rand > 0.5) {
-      cell.push(false);
-    } else {
-      cell.push(true);
-    }
-  }
-
-  return cell;
-}*/
-
-// This is the main algorithm behind the Game of Life simulation.
-// Every time it is called, it computes based on the current state's
-// cells the NEXT state's cells and return a copy of the new cells array.
-//
-// The algorthim determines cell state based on the states of neighbouring
-// cells for each iteration according to these rules:
-//
-// 1 - Any live cell with fewer than two live neighbours dies,as if caused by
-//     under-population.
-// 2 - Any live cell with two or three live neighbours lives on to the next
-//     generation.
-// 3 - Any live cell with more than three live neighbours dies, as if by
-//     overcrowding.
-// 4 - Any dead cell with exactly three live neighbours becomes a live cell,
-//     as if by reproduction.
-//
-function updateCells(state) {
-
-
-  var newCells = new Array(state.cellsFilled.length);
+function inputLeft(state) {
 
   var clear = true;
   for (var i = 0; i < state.newBlock.length; i++) {
-    if (state.newBlock[i] + 10 >= 200) {
+    if (state.newBlock[i] % 10 === 0) {
       clear = false;
-    } else if (state.cellsFilled[state.newBlock[i] + 10]) {
+    } else if (state.cellsFilled[state.newBlock[i] - 1]) {
       clear = false;
     }
   }
@@ -121,49 +77,146 @@ function updateCells(state) {
   if (clear) {
     for (var i = 0; i < state.newBlock.length; i++) {
       var currCell = state.newBlock[i];
-      state.newBlock[i] = currCell + 10;
-      state.cellColor[currCell + 10] = state.newBlockColor;
+      state.newBlock[i] = currCell - 1;
       if (currCell >= 0) {
-        state.cellColor[currCell] = 0;
+        state.cellColor[currCell - 1] = 1;
       }
     }
-  } else {
+
     for (var i = 0; i < state.newBlock.length; i++) {
       var currCell = state.newBlock[i];
-      state.cellColor[currCell] = state.newBlockColor;
-      state.cellsFilled[currCell] = true;
-      if (currCell < 10) {
-        timer.stop();
-        _.assign(state, new Stop);
-      } else {
-        state.newBlock[i] = -7 + i;
+      if (currCell >= 0 && !contains(state.newBlock, currCell + 1)) {
+        state.cellColor[currCell + 1] = 0;
       }
     }
   }
 
-  /*state.cells.forEach(function (_, i) {
-    var cell = state.cells[i];
-    var live_neighbors = 0;
-    var x = i % state.x;
-    var y = Math.floor(i / state.x);
-    var l = x !== 0 && i - 1;
-    var r = x !== state.x - 1 && i + 1;
-    var t = y !== 0 && i - state.x;
-    var b = y !== state.y - 1 && i + state.x;
+  return state;
+}
 
-    var tl, tr, bl, br;
-    l && t && (tl = l - state.x);
-    l && b && (bl = l + state.x);
-    r && t && (tr = r - state.x);
-    r && b && (br = r + state.x);
+function inputRight(state) {
 
-    [l, r, t, b, tl, bl, tr, br].forEach(function (n) {
-      state.cells[n] && live_neighbors++;
-    });
+  var clear = true;
+  for (var i = 0; i < state.newBlock.length; i++) {
+    if (state.newBlock[i] % 10 === 9) {
+      clear = false;
+    } else if (state.cellsFilled[state.newBlock[i] + 1]) {
+      clear = false;
+    }
+  }
 
-    newCells[i] = (cell && (live_neighbors === 2 || live_neighbors === 3)) ||
-           (live_neighbors === 3);
-  });*/
+  if (clear) {
+    for (var i = 0; i < state.newBlock.length; i++) {
+      var currCell = state.newBlock[i];
+      state.newBlock[i] = currCell + 1;
+      if (currCell >= 0) {
+        state.cellColor[currCell + 1] = 1;
+      }
+    }
+
+    for (var i = 0; i < state.newBlock.length; i++) {
+      var currCell = state.newBlock[i];
+      if (currCell >= 0 && !contains(state.newBlock, currCell - 1)) {
+        state.cellColor[currCell - 1] = 0;
+      }
+    }
+  }
+
+  return state;
+}
+
+function inputDown(state) {
+  state.counter = state.counter + 15;
+
+  return updateCells(state);
+}
+
+function hardDrop(state) {
+
+  var clear = true;
+  var heightDiff = 0;
+
+  while (clear) {
+
+    for (var i = 0; i < state.newBlock.length; i++) {
+      state.newBlock[i] = state.newBlock[i] + 10;
+    }
+
+    for (var i = 0; i < state.newBlock.length; i++) {
+      console.log(state.newBlock[i] + 10);
+      if (state.newBlock[i] + 10 >= 200) {
+        clear = false;
+      } else if (state.cellsFilled[state.newBlock[i] + 10]) {
+        clear = false;
+      }
+    }
+
+    heightDiff = heightDiff + 1;
+  }
+
+  for (var i = 0; i < state.newBlock.length; i++) {
+    if (state.newBlock[i] - 10*heightDiff >= 0) {
+      state.cellColor[state.newBlock[i] - 10*heightDiff] = 0;
+    }
+  }
+      
+  for (var i = 0; i < state.newBlock.length; i++) {
+    var currCell = state.newBlock[i];
+    state.cellColor[currCell] = state.newBlockColor;
+    state.cellsFilled[currCell] = true;
+    if (currCell < 10) {
+      timer.stop();
+      _.assign(state, new Stop);
+    } else {
+      state.newBlock[i] = -7 + i;
+    }
+  }
+
+  return state;
+}
+
+function updateCells(state) {
+
+  state.counter = state.counter + 1;
+
+  if (state.counter >= 30) {
+    
+    state.counter = 0; 
+
+    var clear = true;
+    for (var i = 0; i < state.newBlock.length; i++) {
+      if (state.newBlock[i] + 10 >= 200) {
+        clear = false;
+      } else if (state.cellsFilled[state.newBlock[i] + 10]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        var currCell = state.newBlock[i];
+        state.newBlock[i] = currCell + 10;
+        state.cellColor[currCell + 10] = state.newBlockColor;
+        if (currCell >= 0) {
+          state.cellColor[currCell] = 0;
+        }
+      }
+    } else {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        var currCell = state.newBlock[i];
+        state.cellColor[currCell] = state.newBlockColor;
+        state.cellsFilled[currCell] = true;
+        if (currCell < 10) {
+          timer.stop();
+          _.assign(state, new Stop);
+        } else {
+          state.newBlock[i] = -7 + i;
+        }
+      }
+    }
+
+  }
+
   return state;
 }
 

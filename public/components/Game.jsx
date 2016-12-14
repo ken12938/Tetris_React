@@ -30,6 +30,18 @@ var Game = React.createClass({
     this.props.store.dispatch(actions.stop());
   },
 
+  keyboardEvent: function (e) {
+    if (e.keyCode == 37) {
+      this.props.store.dispatch(actions.left());
+    } else if (e.keyCode == 39) {
+      this.props.store.dispatch(actions.right());
+    } else if (e.keyCode == 40) {
+      this.props.store.dispatch(actions.down());
+    } else if (e.keyCode == 32) {
+      this.props.store.dispatch(actions.hardDrop());
+    }
+  },
+
 	render: function () {
 		var cells = [];
 
@@ -44,6 +56,7 @@ var Game = React.createClass({
         </div>
         <div className="start">
           <button onClick={this.run}>Start Game</button>
+          <button onKeyDown={this.keyboardEvent}>Controls</button>
           <button onClick={this.stop}>Stop Game</button>
         </div>
 		  </div>
