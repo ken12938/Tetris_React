@@ -55,6 +55,10 @@ var mainReducer = function (state, action) {
     _.assign(state.cells, hardDrop(state));
     return state;
 
+  case 'ROTATE':
+    _.assign(state.cells, rotate(state));
+    return state;
+
   case 'CELL_CLICKED':
     var cells = state.cellsFilled.slice(0);
     cells[action.index] = !cells[action.index];
@@ -62,6 +66,115 @@ var mainReducer = function (state, action) {
   }
   return state;
 };
+
+function rotate(state) {
+  if (state.newBlockColor === 1) {
+    if (state.newBlockPosition === 1) {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = iBlockToVertical(state, state.newBlock);
+      state.newBlockPosition = 2;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    } else {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = iBlockToHorizontal(state, state.newBlock);
+      state.newBlockPosition = 1;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    }
+  }
+}
+
+function iBlockToVertical(state, arr) {
+  var searching = true;
+  var heightIncrease = 0;
+
+  while (searching) {
+    var newArr = [];
+    for (var i = 0; i < arr.length; i++) {
+      newArr.push(arr[1] - 10 + i*10 - heightIncrease*10);
+    }
+
+    if (newArr[0] < 0) {
+      return arr;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (newArr[i] >= 200) {
+        clear = false;
+      } else if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (!clear) {
+      heightIncrease++;
+    } else {
+      return newArr;
+    }
+
+  }
+}
+
+function iBlockToHorizontal(state, arr) {
+  var searching = true;
+  var heightIncrease = 0;
+
+  while (searching) {
+    var newArr = [];
+    for (var i = 0; i < arr.length; i++) {
+      newArr.push(arr[1] - 1 + i - heightIncrease*10);
+    }
+
+    if (newArr[0] < 0) {
+      return arr;
+    }
+
+    if (newArr[0] % 10 === 9) {
+      var xOffset = 10 - newArr[0] % 10;
+
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] + xOffset;
+      }
+    } else if (newArr[0] % 10 >= 7) {
+      var xOffset = newArr[0] % 10 - 6;
+
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - xOffset;
+      }
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (newArr[i] >= 200) {
+        clear = false;
+      } else if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (!clear) {
+      heightIncrease++;
+    } else {
+      return newArr;
+    }
+  }
+}
 
 function inputLeft(state) {
 
@@ -143,7 +256,6 @@ function hardDrop(state) {
     }
 
     for (var i = 0; i < state.newBlock.length; i++) {
-      console.log(state.newBlock[i] + 10);
       if (state.newBlock[i] + 10 >= 200) {
         clear = false;
       } else if (state.cellsFilled[state.newBlock[i] + 10]) {
@@ -169,6 +281,7 @@ function hardDrop(state) {
       _.assign(state, new Stop);
     } else {
       state.newBlock[i] = -7 + i;
+      state.newBlockPosition = 1;
     }
   }
 
@@ -194,12 +307,14 @@ function updateCells(state) {
 
     if (clear) {
       for (var i = 0; i < state.newBlock.length; i++) {
-        var currCell = state.newBlock[i];
-        state.newBlock[i] = currCell + 10;
-        state.cellColor[currCell + 10] = state.newBlockColor;
-        if (currCell >= 0) {
-          state.cellColor[currCell] = 0;
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
         }
+        state.newBlock[i] = state.newBlock[i] + 10;
+      }
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
       }
     } else {
       for (var i = 0; i < state.newBlock.length; i++) {
@@ -211,6 +326,7 @@ function updateCells(state) {
           _.assign(state, new Stop);
         } else {
           state.newBlock[i] = -7 + i;
+          state.newBlockPosition = 1;
         }
       }
     }
@@ -218,6 +334,10 @@ function updateCells(state) {
   }
 
   return state;
+}
+
+function clearLines (state) {
+
 }
 
 module.exports = exports = {

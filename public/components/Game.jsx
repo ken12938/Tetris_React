@@ -39,6 +39,8 @@ var Game = React.createClass({
       this.props.store.dispatch(actions.down());
     } else if (e.keyCode == 32) {
       this.props.store.dispatch(actions.hardDrop());
+    } else if (e.keyCode == 38) {
+      this.props.store.dispatch(actions.rotate());
     }
   },
 

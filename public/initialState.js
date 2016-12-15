@@ -12,6 +12,7 @@ module.exports = exports = {
   }),
   newBlock: [-7, -6, -5, -4],
   newBlockColor: 1,
+  newBlockPosition: 1,
   counter: 0,
   x: x,
   y: y

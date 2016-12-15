@@ -39,3 +39,9 @@ exports.hardDrop = function () {
     type: 'HARDDROP'
   };
 };
+
+exports.rotate = function () {
+  return {
+    type: 'ROTATE'
+  };
+};
