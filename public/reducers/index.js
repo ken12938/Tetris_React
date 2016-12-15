@@ -192,7 +192,7 @@ function inputLeft(state) {
       var currCell = state.newBlock[i];
       state.newBlock[i] = currCell - 1;
       if (currCell >= 0) {
-        state.cellColor[currCell - 1] = 1;
+        state.cellColor[currCell - 1] = state.newBlockColor;
       }
     }
 
@@ -223,7 +223,7 @@ function inputRight(state) {
       var currCell = state.newBlock[i];
       state.newBlock[i] = currCell + 1;
       if (currCell >= 0) {
-        state.cellColor[currCell + 1] = 1;
+        state.cellColor[currCell + 1] = state.newBlockColor;
       }
     }
 
@@ -271,7 +271,7 @@ function hardDrop(state) {
       state.cellColor[state.newBlock[i] - 10*heightDiff] = 0;
     }
   }
-      
+
   for (var i = 0; i < state.newBlock.length; i++) {
     var currCell = state.newBlock[i];
     state.cellColor[currCell] = state.newBlockColor;
@@ -279,13 +279,10 @@ function hardDrop(state) {
     if (currCell < 10) {
       timer.stop();
       _.assign(state, new Stop);
-    } else {
-      state.newBlock[i] = -7 + i;
-      state.newBlockPosition = 1;
     }
   }
-
-  return state;
+  
+  return clearLines(state);
 }
 
 function updateCells(state) {
@@ -324,11 +321,10 @@ function updateCells(state) {
         if (currCell < 10) {
           timer.stop();
           _.assign(state, new Stop);
-        } else {
-          state.newBlock[i] = -7 + i;
-          state.newBlockPosition = 1;
         }
       }
+
+      return clearLines(state);
     }
 
   }
@@ -336,8 +332,47 @@ function updateCells(state) {
   return state;
 }
 
-function clearLines (state) {
+function clearLines(state) {
+  var linesCleared = 0;
+  var currentLine = 19;
 
+  while (currentLine + linesCleared >= 0 && linesCleared < 4) {
+    var lineFilled = true;
+    for (var i = 0; i < 10; i++) {
+      if (!state.cellsFilled[10*(currentLine + linesCleared) + i]) {
+        lineFilled = false;
+        i = 10;
+      }
+    }
+
+    if (lineFilled) {
+      for (var i = 10*(currentLine + linesCleared) + 9; i >= linesCleared*10; i--) {
+        state.cellsFilled[i] = state.cellsFilled[i - 10];
+        state.cellColor[i] = state.cellColor[i - 10];
+      }
+
+      for (var i = 0; i < 10; i++) {
+        state.cellsFilled[10*linesCleared + i] = false;
+        state.cellColor[10*linesCleared + i] = 0;
+      }
+
+      linesCleared++;
+    }
+    currentLine--;
+  }
+
+  var num = Math.random();
+  if (num > 0.5) {
+    state.newBlock = [-7, -6, -5, -4];
+    state.newBlockPosition = 1;
+    state.newBlockColor = 1;
+  } else {
+    state.newBlock = [-16, -15, -6, -5];
+    state.newBlockPosition = 1;
+    state.newBlockColor = 2;
+  }
+
+  return state;
 }
 
 module.exports = exports = {

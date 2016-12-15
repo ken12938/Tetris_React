@@ -37,9 +37,13 @@ var Cell = React.createClass({
       return (
         <span onClick={this.onCellClick} className="cell-component cell black"></span>
       )
-    } else {
+    } else if (this.props.color === 1) {
       return (
         <span onClick={this.onCellClick} className="cell-component cell red"></span>
+      )
+    } else if (this.props.color === 2) {
+      return (
+        <span onClick={this.onCellClick} className="cell-component cell green"></span>
       )
     }
   }
