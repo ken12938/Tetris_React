@@ -59,6 +59,10 @@ var mainReducer = function (state, action) {
     _.assign(state.cells, rotate(state));
     return state;
 
+  case 'HOLD':
+    _.assign(state.cells, hold(state));
+    return state;
+
   case 'CELL_CLICKED':
     var cells = state.cellsFilled.slice(0);
     cells[action.index] = !cells[action.index];
@@ -66,6 +70,89 @@ var mainReducer = function (state, action) {
   }
   return state;
 };
+
+function hold(state) {
+  if (!state.holding) {
+    state.holding = true;
+
+    for (var i = 0; i < state.newBlock.length; i++) {
+      if (state.newBlock[i] >= 0 && state.newBlock[i] < 200) {
+        state.cellColor[state.newBlock[i]] = 0;
+      }
+    }
+
+    if (state.holdBlockColor === 0) {
+      state.holdBlock = state.newBlock;
+      state.holdBlockColor = state.newBlockColor;
+
+      state.newBlockColor = state.nextBlockColor;
+      state.newBlockPosition = 1;
+
+      var num = Math.random();
+      if (num < 0.1429) {
+        state.nextBlock = [-7, -6, -5, -4];
+        state.nextBlockColor = 1;
+      } else if (num < 0.2857) {
+        state.nextBlock = [-16, -15, -6, -5];
+        state.nextBlockColor = 2;
+      } else if (num < 0.4286) {
+        state.nextBlock = [-15, -6, -5, -4];
+        state.nextBlockColor = 3;
+      } else if (num < 0.5714) {
+        state.nextBlock = [-5, -4, -14, -24];
+        state.nextBlockColor = 4;
+      } else if (num < 0.7143) {
+        state.nextBlock = [-25, -15, -5, -4];
+        state.nextBlockColor = 5;
+      } else if (num < 0.8571) {
+        state.nextBlock = [-16, -15, -5, -4];
+        state.nextBlockColor = 6;
+      } else {
+        state.nextBlock = [-6, -5, -15, -14];
+        state.nextBlockColor = 7;
+      }
+    } else {
+      var tempBlock = state.newBlock;
+      var tempBlockColor = state.newBlockColor;
+
+      state.newBlockColor = state.holdBlockColor;
+      state.newBlockPosition = 1;
+
+      state.holdBlock = tempBlock;
+      state.holdBlockColor = tempBlockColor;
+    }
+
+    switch (state.newBlockColor) {
+      case 1:
+        state.newBlock = [-7, -6, -5, -4];
+        break;
+
+      case 2:
+        state.newBlock = [-16, -15, -6, -5];
+        break;
+
+      case 3:
+        state.newBlock = [-15, -6, -5, -4];
+        break;
+
+      case 4:
+        state.newBlock = [-5, -4, -14, -24];
+        break;
+
+      case 5:
+        state.newBlock = [-25, -15, -5, -4];
+        break;
+
+      case 6:
+        state.newBlock = [-16, -15, -5, -4];
+        break;
+
+      case 7:
+        state.newBlock = [-6, -5, -15, -14];
+        break;
+    }
+  }
+}
 
 function rotate(state) {
   if (state.newBlockColor === 1) {
@@ -1130,6 +1217,8 @@ function clearLines(state) {
     state.nextBlock = [-6, -5, -15, -14];
     state.nextBlockColor = 7;
   }
+
+  state.holding = false;
 
   return state;
 }

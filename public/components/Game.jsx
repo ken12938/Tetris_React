@@ -41,6 +41,8 @@ var Game = React.createClass({
       this.props.store.dispatch(actions.hardDrop());
     } else if (e.keyCode == 38) {
       this.props.store.dispatch(actions.rotate());
+    } else if (e.keyCode == 67) {
+      this.props.store.dispatch(actions.hold());
     }
   },
 
@@ -53,7 +55,7 @@ var Game = React.createClass({
 
     var nextBlock;
 
-    switch(this.state.nextBlockColor) {
+    switch (this.state.nextBlockColor) {
       case 1:
         nextBlock = 'I block';
         break;
@@ -83,19 +85,52 @@ var Game = React.createClass({
         break;
     }
 
-    console.log(this.state.nextBlockColor);
+    var holdBlock;
+
+    switch (this.state.holdBlockColor) {
+      case 0:
+        holdBlock = 'None';
+        break;
+
+      case 1:
+        holdBlock = 'I block';
+        break;
+
+      case 2:
+        holdBlock = 'O block';
+        break;
+
+      case 3:
+        holdBlock = 'T block';
+        break;
+
+      case 4:
+        holdBlock = 'J block';
+        break;
+
+      case 5:
+        holdBlock = 'L block';
+        break;
+
+      case 6:
+        holdBlock = 'Z block';
+        break;
+
+      case 7:
+        holdBlock = 'S block';
+        break;
+    }
 
 		return(
 		  <div className="game-board">
-        <div align="center">
-          <button className="scoreBlock">Score: {this.state.score}</button>
-          <button className="scoreBlock">Combo: {this.state.combo}</button>
-          <button className="scoreBlock">Next: {nextBlock}</button>
-        </div>
+        <button className="scoreBlock">Score: {this.state.score}</button>
+        <button className="scoreBlock">Combo: {this.state.combo}</button>
+        <button className="scoreBlock">Next: {nextBlock}</button>
+        <button className="scoreBlock">Hold: {holdBlock}</button>
         <div className="board-component">
           {cells}
         </div>
-        <div className="start" align="center">
+        <div className="start">
           <button onClick={this.run}>Start Game</button>
           <button onKeyDown={this.keyboardEvent}>Controls</button>
           <button onClick={this.stop}>Stop Game</button>

@@ -45,3 +45,9 @@ exports.rotate = function () {
     type: 'ROTATE'
   };
 };
+
+exports.hold = function () {
+  return {
+    type: 'HOLD'
+  };
+};
