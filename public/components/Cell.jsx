@@ -1,5 +1,3 @@
-// CIS 197 - React HW
-
 var React = require('react');
 var PropTypes = React.PropTypes;
 var actions = require('../actions/index.js');
@@ -19,19 +17,7 @@ var Cell = React.createClass({
     };
   },
 
-  onCellClick: function () {
-    // TODO: Write the code to dispatch the action corresponding to the
-    //       clicking of a cell at a particular index.
-  },
-
   render: function () {
-    // TODO: complete the render function.
-    //       A non-living cell has the HTML structure
-    //       <span class="cell-component cell"></span>
-    //       while a non-living cell has the HTML structure
-    //       <span class="cell-component cell alive"></span>
-    // HINT: don't forget to implement the click handler
-    //       whose execution dispatches a CELL_CLICKED event.
 
     if (this.props.color === 0) {
       return (
@@ -44,6 +30,26 @@ var Cell = React.createClass({
     } else if (this.props.color === 2) {
       return (
         <span onClick={this.onCellClick} className="cell-component cell green"></span>
+      )
+    } else if (this.props.color === 3) {
+      return (
+        <span onClick={this.onCellClick} className="cell-component cell purple"></span>
+      )
+    } else if (this.props.color === 4) {
+      return (
+        <span onClick={this.onCellClick} className="cell-component cell yellow"></span>
+      )
+    } else if (this.props.color === 5) {
+      return (
+        <span onClick={this.onCellClick} className="cell-component cell pink"></span>
+      )
+    } else if (this.props.color === 6) {
+      return (
+        <span onClick={this.onCellClick} className="cell-component cell blue"></span>
+      )
+    } else if (this.props.color === 7) {
+      return (
+        <span onClick={this.onCellClick} className="cell-component cell orange"></span>
       )
     }
   }

@@ -96,6 +96,730 @@ function rotate(state) {
         state.cellColor[state.newBlock[i]] = state.newBlockColor;
       }
     }
+  } else if (state.newBlockColor === 3) {
+    if (state.newBlockPosition === 1) {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = tBlockToRight(state, state.newBlock);
+      state.newBlockPosition = 2;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    } else if (state.newBlockPosition === 2) {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = tBlockToDown(state, state.newBlock);
+      state.newBlockPosition = 3;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    } else if (state.newBlockPosition === 3) {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = tBlockToLeft(state, state.newBlock);
+      state.newBlockPosition = 4;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    } else {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = tBlockToUp(state, state.newBlock);
+      state.newBlockPosition = 1;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    }
+  } else if (state.newBlockColor === 4) {
+    if (state.newBlockPosition === 1) {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = jBlockToRight(state, state.newBlock);
+      state.newBlockPosition = 2;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    } else if (state.newBlockPosition === 2) {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = jBlockToDown(state, state.newBlock);
+      state.newBlockPosition = 3;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    } else if (state.newBlockPosition === 3) {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = jBlockToLeft(state, state.newBlock);
+      state.newBlockPosition = 4;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    } else {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = jBlockToUp(state, state.newBlock);
+      state.newBlockPosition = 1;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    }
+  } else if (state.newBlockColor === 5) {
+    if (state.newBlockPosition === 1) {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = lBlockToRight(state, state.newBlock);
+      state.newBlockPosition = 2;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    } else if (state.newBlockPosition === 2) {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = lBlockToDown(state, state.newBlock);
+      state.newBlockPosition = 3;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    } else if (state.newBlockPosition === 3) {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = lBlockToLeft(state, state.newBlock);
+      state.newBlockPosition = 4;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    } else {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = lBlockToUp(state, state.newBlock);
+      state.newBlockPosition = 1;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    }
+  } else if (state.newBlockColor === 6) {
+    if (state.newBlockPosition === 1) {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = zBlockToVertical(state, state.newBlock);
+      state.newBlockPosition = 2;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    } else {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = zBlockToHorizontal(state, state.newBlock);
+      state.newBlockPosition = 1;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    }
+  } else if (state.newBlockColor === 7) {
+    if (state.newBlockPosition === 1) {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = sBlockToVertical(state, state.newBlock);
+      state.newBlockPosition = 2;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    } else {
+      for (var i = 0; i < state.newBlock.length; i++) {
+        if (state.newBlock[i] >= 0) {
+          state.cellColor[state.newBlock[i]] = 0;
+        }
+      }
+
+      state.newBlock = sBlockToHorizontal(state, state.newBlock);
+      state.newBlockPosition = 1;
+
+      for (var i = 0; i < state.newBlock.length; i++) {
+        state.cellColor[state.newBlock[i]] = state.newBlockColor;
+      }
+    }
+  }
+}
+
+function sBlockToVertical(state, arr) {
+  var newArr = arr;
+  newArr[0] = arr[0] + 1;
+  newArr[1] = arr[1] - 10;
+  newArr[2] = arr[2] - 1;
+  newArr[3] = arr[3] - 12;
+
+  var searching = true;
+
+  while (searching) {
+    if (newArr[0] < 0) {
+      return arr;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    }
+  }
+}
+
+function sBlockToHorizontal(state, arr) {
+  var newArr = arr;
+  newArr[0] = arr[0] - 1;
+  newArr[1] = arr[1] + 10;
+  newArr[2] = arr[2] + 1;
+  newArr[3] = arr[3] + 12;
+
+  if (newArr[3] % 10 === 0) {
+    for (var i = 0; i < newArr.length; i++) {
+      newArr[i] = newArr[i] - 1;
+    }
+  }
+
+  var searching = true;
+
+  while (searching) {
+    if (newArr[0] < 0) {
+      return arr;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    }
+  }
+}
+
+function zBlockToVertical(state, arr) {
+  var newArr = arr;
+  newArr[0] = arr[0] - 9;
+  newArr[2] = arr[2] - 11;
+  newArr[3] = arr[3] - 2;
+
+  var searching = true;
+
+  while (searching) {
+    if (newArr[0] < 0) {
+      return arr;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    }
+  }
+}
+
+function zBlockToHorizontal(state, arr) {
+  var newArr = arr;
+  newArr[0] = arr[0] + 9;
+  newArr[2] = arr[2] + 11;
+  newArr[3] = arr[3] + 2;
+
+  if (newArr[3] % 10 === 0) {
+    for (var i = 0; i < newArr.length; i++) {
+      newArr[i] = newArr[i] - 1;
+    }
+  }
+
+  var searching = true;
+
+  while (searching) {
+    if (newArr[0] < 0) {
+      return arr;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    }
+  }
+}
+
+function lBlockToRight(state, arr) {
+  var newArr = arr;
+  newArr[0] = arr[0] + 12;
+  newArr[1] = arr[1] + 1;
+  newArr[2] = arr[2] - 10;
+  newArr[3] = arr[3] - 1;
+
+  if (newArr[0] % 10 === 0) {
+    for (var i = 0; i < newArr.length; i++) {
+      newArr[i] = newArr[i] - 1;
+    }
+  }
+
+  var searching = true;
+
+  while (searching) {
+    if (newArr[0] < 0) {
+      return arr;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    }
+  }
+}
+
+function lBlockToDown(state, arr) {
+  var newArr = arr;
+  newArr[0] = arr[0] + 19;
+  newArr[1] = arr[1] + 10;
+  newArr[2] = arr[2] + 1;
+  newArr[3] = arr[3] - 10;
+
+  var searching = true;
+
+  while (searching) {
+    if (newArr[0] < 0) {
+      return arr;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    }
+  }
+}
+
+function lBlockToLeft(state, arr) {
+  var newArr = arr;
+  newArr[0] = arr[0] - 12;
+  newArr[1] = arr[1] - 1;
+  newArr[2] = arr[2] + 10;
+  newArr[3] = arr[3] + 1;
+
+  if (newArr[0] % 10 === 9) {
+    for (var i = 0; i < newArr.length; i++) {
+      newArr[i] = newArr[i] + 1;
+    }
+  }
+
+  var searching = true;
+
+  while (searching) {
+    if (newArr[0] < 0) {
+      return arr;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    }
+  }
+}
+
+function lBlockToUp(state, arr) {
+  var newArr = arr;
+  newArr[0] = arr[0] - 19;
+  newArr[1] = arr[1] - 10;
+  newArr[2] = arr[2] - 1;
+  newArr[3] = arr[3] + 10;
+
+  var searching = true;
+
+  while (searching) {
+    if (newArr[0] < 0) {
+      return arr;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    }
+  }
+}
+
+function jBlockToRight(state, arr) {
+  var newArr = arr;
+  newArr[0] = arr[0] - 10;
+  newArr[1] = arr[1] - 1;
+  newArr[2] = arr[2] + 10;
+  newArr[3] = arr[3] + 21;
+
+  if (newArr[3] % 10 === 0) {
+    for (var i = 0; i < newArr.length; i++) {
+      newArr[i] = newArr[i] - 1;
+    }
+  }
+
+  var searching = true;
+
+  while (searching) {
+    if (newArr[0] < 0) {
+      return arr;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    }
+  }
+}
+
+function jBlockToDown(state, arr) {
+  var newArr = arr;
+  newArr[0] = arr[0] + 1;
+  newArr[1] = arr[1] - 10;
+  newArr[2] = arr[2] - 1;
+  newArr[3] = arr[3] + 8;
+
+  var searching = true;
+
+  while (searching) {
+    if (newArr[0] < 0) {
+      return arr;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    }
+  }
+}
+
+function jBlockToLeft(state, arr) {
+  var newArr = arr;
+  newArr[0] = arr[0] + 10;
+  newArr[1] = arr[1] + 1;
+  newArr[2] = arr[2] - 10;
+  newArr[3] = arr[3] - 21;
+
+  if (newArr[3] % 10 === 9) {
+    for (var i = 0; i < newArr.length; i++) {
+      newArr[i] = newArr[i] + 1;
+    }
+  }
+
+  var searching = true;
+
+  while (searching) {
+    if (newArr[2] < 0) {
+      return arr;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    }
+  }
+}
+
+function jBlockToUp(state, arr) {
+  var newArr = arr;
+  newArr[0] = arr[0] - 1;
+  newArr[1] = arr[1] + 10;
+  newArr[2] = arr[2] + 1;
+  newArr[3] = arr[3] - 8;
+  console.log(arr + ", " + newArr);
+
+  var searching = true;
+
+  while (searching) {
+    if (newArr[3] < 0) {
+      return arr;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    }
+  }
+}
+
+function tBlockToRight(state, arr) {
+  var newArr = arr;
+  newArr[1] = newArr[2] + 10;
+
+  var searching = true;
+  var heightIncrease = 0;
+
+  while (searching) {
+    if (newArr[0] < 0) {
+      return arr;
+    }
+
+    if (newArr[1] >= 200) {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    } else if (state.cellsFilled[newArr[1]]) {
+      for (var i = 0; i < newArr.length; i++) {
+        newArr[i] = newArr[i] - 10;
+      }
+    } else {
+      return arr;
+    }
+  }
+
+  return newArr;
+}
+
+function tBlockToDown(state, arr) {
+  var newArr = arr;
+  newArr[0] = newArr[2] - 1;
+
+  if (newArr[0] % 10 === 9) {
+    for (var i = 0; i < newArr.length; i++) {
+      newArr[i] = newArr[i] + 1;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (newArr[i] >= 200) {
+        clear = false;
+      } else if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      return arr;
+    }
+  } else {
+    return newArr;
+  }
+}
+
+function tBlockToLeft(state, arr) {
+  var newArr = arr;
+  newArr[3] = newArr[2] - 10;
+
+  if (newArr[3] < 0) {
+    return arr;
+  } else if (state.cellsFilled[newArr[3]]) {
+    return arr;
+  } else {
+    return newArr;
+  }
+}
+
+function tBlockToUp(state, arr) {
+  var newArr = arr;
+  newArr[3] = newArr[2] + 1;
+  newArr[1] = newArr[2] - 1;
+  newArr[0] = newArr[2] - 10;
+
+  if (newArr[3] % 10 === 0) {
+    for (var i = 0; i < newArr.length; i++) {
+      newArr[i] = newArr[i] - 1;
+    }
+
+    var clear = true;
+    for (var i = 0; i < newArr.length; i++) {
+      if (newArr[i] >= 200) {
+        clear = false;
+      } else if (state.cellsFilled[newArr[i]]) {
+        clear = false;
+      }
+    }
+
+    if (clear) {
+      return newArr;
+    } else {
+      return arr;
+    }
+  } else {
+    return newArr;
   }
 }
 
@@ -287,7 +1011,7 @@ function hardDrop(state) {
 
 function updateCells(state) {
 
-  state.counter = state.counter + 1;
+  state.counter = state.counter + 1 + state.score/20;
 
   if (state.counter >= 30) {
     
@@ -361,15 +1085,50 @@ function clearLines(state) {
     currentLine--;
   }
 
-  var num = Math.random();
-  if (num > 0.5) {
-    state.newBlock = [-7, -6, -5, -4];
-    state.newBlockPosition = 1;
-    state.newBlockColor = 1;
+  //updating score
+  if (linesCleared === 1) {
+    state.score = state.score + 2 + 2*state.combo;
+    state.combo++;
+  } else if (linesCleared === 2) {
+    state.score = state.score + 5 + 2*state.combo;
+    state.combo++;
+  } else if (linesCleared === 3) {
+    state.score = state.score + 10 + 2*state.combo;
+    state.combo++;
+  } else if (linesCleared === 4) {
+    state.score = state.score + 20 + 2*state.combo;
+    state.combo++;
   } else {
-    state.newBlock = [-16, -15, -6, -5];
-    state.newBlockPosition = 1;
-    state.newBlockColor = 2;
+    state.combo = 0;
+  }
+
+  //making new block at the top
+  state.newBlock = state.nextBlock;
+  state.newBlockColor = state.nextBlockColor;
+  state.newBlockPosition = 1;
+
+  var num = Math.random();
+  if (num < 0.1429) {
+    state.nextBlock = [-7, -6, -5, -4];
+    state.nextBlockColor = 1;
+  } else if (num < 0.2857) {
+    state.nextBlock = [-16, -15, -6, -5];
+    state.nextBlockColor = 2;
+  } else if (num < 0.4286) {
+    state.nextBlock = [-15, -6, -5, -4];
+    state.nextBlockColor = 3;
+  } else if (num < 0.5714) {
+    state.nextBlock = [-5, -4, -14, -24];
+    state.nextBlockColor = 4;
+  } else if (num < 0.7143) {
+    state.nextBlock = [-25, -15, -5, -4];
+    state.nextBlockColor = 5;
+  } else if (num < 0.8571) {
+    state.nextBlock = [-16, -15, -5, -4];
+    state.nextBlockColor = 6;
+  } else {
+    state.nextBlock = [-6, -5, -15, -14];
+    state.nextBlockColor = 7;
   }
 
   return state;
